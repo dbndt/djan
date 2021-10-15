@@ -1,3 +1,3 @@
 # djan
 matplan check
-all check to iNginx Django Gun Post in Docker
+all check to Nginx Django Gun Post in Docker
