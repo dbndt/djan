@@ -1,0 +1,21 @@
+version: '3'
+services:
+  chekelee:
+    build: .
+    volumes:
+      - .:/opt/services/djangoapp/src
+    networks:
+      - nginx_network
+  nginx:
+    image: nginx:1.13
+    ports:
+      - 8000:80
+    volumes:
+      - ./config/nginx/conf.d:/etc/nginx/conf.d
+    depends_on:
+      - chekelee
+    networks:
+      - nginx_network
+networks:
+  nginx_network:
+    driver: bridge

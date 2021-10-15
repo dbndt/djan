@@ -7,8 +7,9 @@ name = "pypi"
 [packages]
 Django = "*"
 gunicorn = "*"
+psycopg2 = "*"
 
 
 [requires]
-# our Dockerfile is based on Python 3.6
+# our Dockerfile is based on Python 3.8.10
 python_version = "3.8.10"
