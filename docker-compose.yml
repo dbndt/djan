@@ -2,20 +2,45 @@ version: '3'
 services:
   chekelee:
     build: .
+    environment:
+      - DJANGO_SETTINGS_MODULE
     volumes:
       - .:/opt/services/djangoapp/src
+      - static:/opt/services/djangoapp/static
+      - media:/opt/services/djangoapp/media
     networks:
       - nginx_network
+      - invntre_network
+    depends_on:
+      - invntre
   nginx:
     image: nginx:1.13
     ports:
       - 8000:80
     volumes:
       - ./config/nginx/conf.d:/etc/nginx/conf.d
+      - static:/opt/services/djangoapp/static
+      - media:/opt/services/djangoapp/media
     depends_on:
       - chekelee
     networks:
       - nginx_network
+  invntre:
+    image: postgres:12
+    env_file:
+      - config/db/invntre_env
+    networks:
+      - invntre_network
+    volumes:
+      - invntre_volume:/var/lib/postgresql/data
+
 networks:
   nginx_network:
     driver: bridge
+  invntre_network:
+    driver: bridge
+
+volumes:
+  invntre_volume:
+  static:
+  media:
